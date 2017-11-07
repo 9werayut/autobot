@@ -11,12 +11,14 @@ $channel_secret = '50c426fafb4c142a2a88b4e182ea9089';
 // Create bot
 $httpClient = new CurlHTTPClient($channel_token);
 $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
+
 // Database connection 
-$host = 'ec2-174-129-223-193.compute-1.amazonaws.com';
-$dbname = 'd74bjtc28mea5m';
-$user = 'eozuwfnzmgflmu';
-$pass = '2340614a293db8e8a8c02753cd5932cdee45ab90bfcc19d0d306754984cbece1';
+$host = 'ec2-54-235-150-134.compute-1.amazonaws.com';                 
+$dbname = 'd7f7fte41bha85';                  
+$user = 'qohytdhrfarzbh';
+$pass = 'eeaa9a12fe9a15603cd4ada2e97b443475c79d628a8437183a5a06c017070736';
 $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
+
 // Get message from Line API
 $content = file_get_contents('php://input');
 $events = json_decode($content, true);
