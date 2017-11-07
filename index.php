@@ -31,7 +31,6 @@ if (!is_null($events['events'])) {
 		if ($event['type'] == 'message') {
             switch($event['message']['type']) {
                 case 'text':
-                    
                     $sql = sprintf("SELECT * FROM slips WHERE slip_date='%s' AND user_id='%s' ", date('Y-m-d'),$event['source']['userId']);
                     $result = $connection->query($sql);
                     if($result !== false && $result->rowCount() >0) {
@@ -41,8 +40,8 @@ if (!is_null($events['events'])) {
                             'slip_date' => date('Y-m-d'),
                             'user_id' => $event['source']['userId'],
                         );
-                        $statement = $connection->prepare('UPDATE slips SET name=:name WHERE slip_date=:slip_date AND user_id=:user_id'); 
-                        $statement->execute($params);
+                        $statement += $connection->prepare('UPDATE slips SET name=:name WHERE slip_date=:slip_date AND user_id=:user_id'); 
+                        $effect = $statement->execute($params);
                     } else {
                         $params = array(
                             'user_id' => $event['source']['userId'] ,
@@ -54,7 +53,7 @@ if (!is_null($events['events'])) {
                         $effect = $statement->execute($params);
                     }
                     // Bot response 
-                    $respMessage = 'Your data has saved.';
+                    $respMessage = $effect;
                     $replyToken = $event['replyToken'];
                     $textMessageBuilder = new TextMessageBuilder($respMessage);
                     $response = $bot->replyMessage($replyToken, $textMessageBuilder);
