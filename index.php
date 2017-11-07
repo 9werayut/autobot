@@ -30,7 +30,8 @@ if (!is_null($events['events']))
             case 'idcard':                     
                 $respMessage = '5845122451245';                     
             break;                 
-            default:                     
+            default:
+                $respMessage = 'ไม่มีข้อมูลที่ต้องการครับ';                  
             break;             
         }              
         $httpClient = new CurlHTTPClient($channel_token);             
